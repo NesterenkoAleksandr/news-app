@@ -9,17 +9,6 @@ const btnSearch = document.getElementById("btn-search");
 const inputSearch = document.getElementById("search");
 
 /**
- * elementsDisabled - устанавливает значение аттрибута disabled для всех элементов "select" и элемента btnSearch
- * @returns {void}
- */
-const elementsDisabled = () => {
-    btnSearch.disabled = !inputSearch.value;
-    // Установить атрибут "disabled" для комбиков "выбор страны" и "выбор категории"
-    // categorySelect.disabled = !btnSearch.disabled в данном случае не сработал, пришлось извращаться.
-    document.querySelectorAll(".select-dropdown").forEach((item) => item.disabled = !btnSearch.disabled);
-}
-
-/**
  * getNewsHandler - функция для формирования списка новостей и вывода его на веб-страницу
  * @returns {void}
  */
@@ -47,6 +36,18 @@ const getNewsHandler = () => {
 // Подписка на события
 countrySelect.addEventListener("change", getNewsHandler);
 categorySelect.addEventListener("change", getNewsHandler);
-inputSearch.addEventListener("keyup", e => elementsDisabled());
+inputSearch.addEventListener("keyup", _ => {
+    btnSearch.disabled = !inputSearch.value;
+
+    // Установить атрибут "disabled" для комбиков "выбор страны" и "выбор категории"
+    countrySelect.disabled = !btnSearch.disabled;
+    categorySelect.disabled = !btnSearch.disabled;
+
+    // Переинициализировать material design <<<!!! переделать на чистый JS !!!>>>
+    $('select').formSelect();
+
+    // Oбновить список новостей, в случае сброса условия для поиска
+    if (!inputSearch.value) getNewsHandler();
+});
 btnSearch.addEventListener("click", getNewsHandler);
 window.addEventListener("load", getNewsHandler);
