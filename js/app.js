@@ -3,10 +3,29 @@ const newsService = new NewsService(new CustomHttp());
 const newsUI = new NewsUI();
 
 // UI elements
-const countrySelect = document.querySelector(".country");
-const categorySelect = document.querySelector(".category");
-const btnSearch = document.getElementById("btn-search");
-const inputSearch = document.getElementById("search");
+const formSearch = document.forms["form-search"];
+const countrySelect = formSearch.elements["sel-country"];
+const categorySelect = formSearch.elements["sel-category"];
+const btnSearch = formSearch.elements["btn-search"];
+const inputSearch = formSearch.elements["search"];
+
+/**
+ * getSearchHandler - функция активирует/деактивирует элементы управления в зависимости от наличия условия для поиска
+ * @returns {void}
+ */
+const getSearchHandler = () => {
+    btnSearch.disabled = !inputSearch.value;
+
+    // Установить атрибут "disabled" для комбиков "выбор страны" и "выбор категории"
+    countrySelect.disabled = !btnSearch.disabled;
+    categorySelect.disabled = !btnSearch.disabled;
+
+    // Переинициализировать material design <<<!!! переделать на чистый JS !!!>>>
+    $('select').formSelect();
+
+    // Oбновить список новостей, в случае сброса условия для поиска
+    if (!inputSearch.value) getNewsHandler();    
+}
 
 /**
  * getNewsHandler - функция для формирования списка новостей и вывода его на веб-страницу
@@ -15,7 +34,7 @@ const inputSearch = document.getElementById("search");
 const getNewsHandler = () => {
     const country = countrySelect.value;
     const category = categorySelect.value;
-    const search = inputSearch.value;
+    const search = inputSearch.value.replace(/ /g, '+');
 
     // Получить и вывести на веб-страницу краткую сводку новостей
     newsService.fetchTopHeadlines((res) => {
@@ -36,18 +55,13 @@ const getNewsHandler = () => {
 // Подписка на события
 countrySelect.addEventListener("change", getNewsHandler);
 categorySelect.addEventListener("change", getNewsHandler);
-inputSearch.addEventListener("keyup", _ => {
-    btnSearch.disabled = !inputSearch.value;
 
-    // Установить атрибут "disabled" для комбиков "выбор страны" и "выбор категории"
-    countrySelect.disabled = !btnSearch.disabled;
-    categorySelect.disabled = !btnSearch.disabled;
-
-    // Переинициализировать material design <<<!!! переделать на чистый JS !!!>>>
-    $('select').formSelect();
-
-    // Oбновить список новостей, в случае сброса условия для поиска
-    if (!inputSearch.value) getNewsHandler();
+formSearch.addEventListener("submit", e => {
+    e.preventDefault();
+    // Обновить данные только если указанно условие для поиска 
+    if (inputSearch.value) getNewsHandler();
 });
+
+inputSearch.addEventListener("keyup", getSearchHandler);
 btnSearch.addEventListener("click", getNewsHandler);
 window.addEventListener("load", getNewsHandler);

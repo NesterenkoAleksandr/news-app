@@ -12,38 +12,40 @@
 </head>
 <body>
     <div class="form-container container">
-        <div class="card">
-            <div class="card-content">
-                <div class="row selects">
-                    <div class="input-field col s12 m6">
-                        <select class="country">
-                            <option value="ua" selected>UA</option>
-                            <option value="ru">RU</option>
-                            <option value="us">USA</option>
-                            <option value="mx">Mexico</option>
-                        </select>
-                        <label>Choose your country</label>
-                    </div>
-                    <div class="input-field col s12 m6">
-                        <select class="category">
-                            <option value="technology" selected>Technology</option>
-                            <option value="business">Business</option>
-                            <option value="sports">Sports</option>
-                        </select>
-                        <label>Choose your category</label>
+        <form id="form-search">
+            <div class="card">
+                <div class="card-content">
+                    <div class="row">
+                        <div class="input-field col s12 m6">
+                            <select id="sel-country" class="country">
+                                <option value="ua" selected>UA</option>
+                                <option value="ru">RU</option>
+                                <option value="us">USA</option>
+                                <option value="mx">Mexico</option>
+                            </select>
+                            <label>Choose your country</label>
+                        </div>
+                        <div class="input-field col s12 m6">
+                            <select id="sel-category" class="category">
+                                <option value="technology" selected>Technology</option>
+                                <option value="business">Business</option>
+                                <option value="sports">Sports</option>
+                            </select>
+                            <label>Choose your category</label>
+                        </div>                    
                     </div>                    
-                </div>
-                <div class="row">
-                    <div class="input-field col s12 m10">                        
+                    <div class="row">
+                        <div class="input-field col s12 m10">                        
                             <input value="" id="search" type="text" class="validate">
                             <label class="active" for="search">Enter your text...</label>                     
-                    </div>
-                    <div class="input-field col s12 m2">                        
-                        <input id="btn-search" class="btn" type="submit" value="Search" disabled>                   
-                    </div>
+                        </div>
+                        <div class="input-field col s12 m2">                        
+                            <input id="btn-search" class="btn" type="submit" value="Search" disabled>                   
+                        </div>
+                    </div>                    
                 </div>
             </div>
-        </div>
+        </form>
     </div>
     <div class="news-container container">
         <div class="row"></div>
