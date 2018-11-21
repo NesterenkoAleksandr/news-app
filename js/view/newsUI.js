@@ -53,11 +53,19 @@ class NewsUI {
     }
 
     /**
-     * _emptyTemplate - статический метод для формирования шаблона предупреждения, в случае отсутствия данных для отображения
+     * _emptyTemplate - метод для формирования шаблона предупреждения, в случае отсутствия данных для отображения
      * @returns {string} - шаблон разметки в случае отсутствия данных
      */
-    static _emptyTemplate() {
-        return `<div class="alert alert-info">Нет данных.</div>`
+    _emptyTemplate() {
+        return `
+        <div class="col s12"> 
+            <div class="card">
+                <div class="card-content">
+                    <span class="card-title">No data available</span>
+                </div>
+            </div>
+        </div>
+        `
     }
 }
 
