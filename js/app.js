@@ -20,9 +20,9 @@ const getSearchHandler = () => {
     countrySelect.disabled = !btnSearch.disabled;
     categorySelect.disabled = !btnSearch.disabled;
 
-    // Переинициализировать material design <<<!!! переделать на чистый JS !!!>>>
-    $('select').formSelect();
-    
+    // Переинициализировать material design
+    M.FormSelect.init(document.querySelectorAll('select')); 
+
 
     // Oбновить список новостей, в случае сброса условия для поиска
     if (!inputSearch.value) getNewsHandler();    
