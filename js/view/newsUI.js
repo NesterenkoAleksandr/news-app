@@ -4,6 +4,11 @@ class NewsUI {
         this._defaultImage = "img/default-image.png";
     }
 
+    /**
+     * addNews - метод для вывода данных на веб-страницу 
+     * @param {object} news - новости
+     * @returns {void}
+     */
     addNews(news) {
         const template = this._newsTemplate(news);
         this._container.insertAdjacentHTML("afterbegin", template);

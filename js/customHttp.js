@@ -7,7 +7,7 @@ class CustomHttp {
      */
     get(url, callback) {
         const xhr = new XMLHttpRequest();
-console.log(url);
+
         xhr.open("GET", url);
 
         xhr.addEventListener("load", () => {

@@ -22,6 +22,7 @@ const getSearchHandler = () => {
 
     // Переинициализировать material design <<<!!! переделать на чистый JS !!!>>>
     $('select').formSelect();
+    
 
     // Oбновить список новостей, в случае сброса условия для поиска
     if (!inputSearch.value) getNewsHandler();    

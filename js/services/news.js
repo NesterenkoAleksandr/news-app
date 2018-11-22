@@ -4,9 +4,9 @@ class NewsService {
         this._url = "https://newsapi.org/v2";
         this._country = "ua";
         this._category = "technology";
-        this.search = "";
+        this._search = "";
         this._http = http;
-        this._getUrlTemplate = (url, key, country, category, search) =>{
+        this._getUrlTemplate = (url = this._url, key = this._key, country = this._country, category = this._category, search = this._search) =>{
             if (!search) {
                 return `${url}/top-headlines?country=${country}&category=${category}&apiKey=${key}`;
             } 
@@ -22,7 +22,7 @@ class NewsService {
      * @param {string} search - условие для поиска
      * @returns {void}
      */
-    fetchTopHeadlines(callback, country = this._country, category = this._category, search = _this.search) {
+    fetchTopHeadlines(callback, country = this._country, category = this._category, search = this._search) {
         this._http.get(this._getUrlTemplate(this._url, this._key, country, category, search), callback);
     }
 }
