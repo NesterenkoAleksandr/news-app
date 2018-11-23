@@ -3,11 +3,11 @@ const newsService = new NewsService(new CustomHttp());
 const newsUI = new NewsUI();
 
 // UI elements
-const formSearch = document.forms["form-search"];
-const countrySelect = formSearch.elements["sel-country"];
-const categorySelect = formSearch.elements["sel-category"];
-const btnSearch = formSearch.elements["btn-search"];
-const inputSearch = formSearch.elements["search"];
+const formFilter = document.forms["form-filter"];
+const countrySelect = formFilter.elements["sel-country"];
+const categorySelect = formFilter.elements["sel-category"];
+const btnSearch = formFilter.elements["btn-search"];
+const inputSearch = formFilter.elements["search"];
 
 /**
  * getSearchHandler - функция активирует/деактивирует элементы управления в зависимости от наличия условия для поиска
@@ -16,13 +16,13 @@ const inputSearch = formSearch.elements["search"];
 const getSearchHandler = () => {
     btnSearch.disabled = !inputSearch.value;
 
-    // Установить атрибут "disabled" для комбиков "выбор страны" и "выбор категории"
+    // Установить атрибут "disabled" для элемента "фильтр по стране"
     countrySelect.disabled = !btnSearch.disabled;
+    M.FormSelect.init(countrySelect);
+
+    // Установить атрибут "disabled" для элемента "фильтр по категории"
     categorySelect.disabled = !btnSearch.disabled;
-
-    // Переинициализировать material design
-    M.FormSelect.init(document.querySelectorAll('select')); 
-
+    M.FormSelect.init(categorySelect); 
 
     // Oбновить список новостей, в случае сброса условия для поиска
     if (!inputSearch.value) getNewsHandler();    
@@ -57,7 +57,7 @@ const getNewsHandler = () => {
 countrySelect.addEventListener("change", getNewsHandler);
 categorySelect.addEventListener("change", getNewsHandler);
 
-formSearch.addEventListener("submit", e => {
+formFilter.addEventListener("submit", e => {
     e.preventDefault();
     // Обновить данные только если указанно условие для поиска 
     if (inputSearch.value) getNewsHandler();

@@ -6,13 +6,23 @@ class NewsService {
         this._category = "technology";
         this._search = "";
         this._http = http;
-        this._getUrlTemplate = (url = this._url, key = this._key, country = this._country, category = this._category, search = this._search) =>{
-            if (!search) {
-                return `${url}/top-headlines?country=${country}&category=${category}&apiKey=${key}`;
-            } 
-            return `${url}/everything?q=${search}&apiKey=${key}`;
-        }
     }
+
+    /**
+     * _getUrlTemplate - функция формирует строку запроса к серверу
+     * @param {string} url - адрес сервера
+     * @param {string} key - ключ
+     * @param {string} country - страна
+     * @param {string} category - категория
+     * @param {string} search - условие для поиска
+     * @returns {string} - строка запроса
+     */
+    _getUrlTemplate (url = this._url, key = this._key, country = this._country, category = this._category, search = this._search) {
+        if (!search) {
+            return `${url}/top-headlines?country=${country}&category=${category}&apiKey=${key}`;
+        } 
+        return `${url}/everything?q=${search}&apiKey=${key}`;
+    }   
 
     /**
      * fetchTopHeadlines - функция получает с сервера краткую сводку новостей и обрабатывает ее через callback 
